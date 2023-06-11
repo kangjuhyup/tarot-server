@@ -6,9 +6,16 @@ import { TarotService } from './tarot/tarot.service';
 import { TarotModule } from './tarot/tarot.module';
 import { AiService } from './ai/ai.service';
 import { AiModule } from './ai/ai.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TarotModule, AiModule],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal : true
+    }),
+    TarotModule, 
+    AiModule
+  ],
   controllers: [AppController, TarotController],
   providers: [AppService, TarotService, AiService],
 })
