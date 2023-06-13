@@ -13,9 +13,10 @@ export class AiService {
     constructor(
         private readonly configService : ConfigService
     ) {
+        console.log(configService.get('OPEN_AI_KEY'))
         const config = new Configuration({
             apiKey : configService.get('OPEN_AI_KEY'),
-            organization : configService.get('OPEN_API_ORG')
+            organization : configService.get('OPEN_AI_ORG')
         })
         this.client = new OpenAIApi(config);       
         this.chatService = new OpenAiChatService(this.client); 
