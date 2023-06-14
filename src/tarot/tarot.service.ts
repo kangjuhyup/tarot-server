@@ -20,12 +20,15 @@ export class TarotService {
         const third_text = numToCard(third_card_num);
         const third_forward_text = boolToForward(third_forward);
 
-        const prompt = `타로카드 ${type_text}에 관해 100글자 이내 해석. 첫번째 카드 ${first_text} ${first_forward_text}, 두번째 카드 ${second_text} ${second_forward_text}, 세번째 카드 ${third_text} ${third_forward_text}.`
+        const prompt = `Give me a tarot card interpretation for ${type_text} in 100 characters or less, in an astrologer-like tone. First card ${first_text} ${first_forward_text}, second card ${second_text} ${second_forward_text}, third card ${third_text} ${third_forward_text}.`
         try {
-            const result = (await (this.aiService.chatService.textCompletion(prompt))).choices[0].text
+            // const result = (await (this.aiService.chatService.textCompletion(prompt))).choices[0].text
+            const result = await this.aiService.translatorService.translate(prompt);
+            console.log(result);
             return { success : true , result : result };
             // return { success : true, result :'abc'}
         } catch(err) {
+            console.error(err);
             return { sucess : false, error : err };
         }
     }

@@ -2,7 +2,7 @@ import { OpenAIApi } from 'openai';
 import { OpenAiCompletionResponse } from '../model/completion.model';
 
 export class OpenAiChatService {
-  private readonly DEFAULT_COMPLETION_MODEL = 'text-davinci-003';
+  private readonly DEFAULT_COMPLETION_MODEL = 'gpt-3.5-turbo';
 
   private readonly MAX_TOKENS = 512;
 
