@@ -15,7 +15,7 @@ export class AiService {
     ) {
         const config = new Configuration({
             apiKey : configService.get('OPEN_AI_KEY'),
-            organization : configService.get('OPEN_AI_ORG')
+            organization : configService.get('OPEN_AI_ORG'),
         })
         this.client = new OpenAIApi(config);       
         this.chatService = new OpenAiChatService(this.client); 

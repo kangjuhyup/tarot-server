@@ -25,6 +25,7 @@ export class TarotService {
         const prompt = `Give me a tarot card interpretation for ${type_text} in 200 characters or less. First card ${first_text} ${first_forward_text}, second card ${second_text} ${second_forward_text}, third card ${third_text} ${third_forward_text}.`
         try {
             const ai_result = (await (this.aiService.chatService.textCompletion(prompt))).choices[0].text
+            console.log(ai_result);
             const translator_result = await this.translatorService.translate(ai_result);
             return { success : true , result : translator_result.message.result.translatedText };
             // return { success : true, result :'abc'}
