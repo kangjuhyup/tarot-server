@@ -8,6 +8,7 @@ import { AiService } from './ai/ai.service';
 import { AiModule } from './ai/ai.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -27,8 +28,9 @@ import * as Joi from 'joi';
         OPEN_AI_ORG : Joi.string().required(),
       }),
     }),
-    TarotModule, 
-    AiModule
+    TarotModule,
+    HttpModule, 
+    AiModule,
   ],
   controllers: [AppController, TarotController],
   providers: [AppService, TarotService, AiService],
