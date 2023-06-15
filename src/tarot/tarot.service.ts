@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { AiService } from 'src/ai/ai.service';
+import { PapagoTranslatorService } from 'src/ai/translator/papago/papago_translator.service';
 import { boolToForward, numToCard, numToType } from 'src/utils/card';
 import { getResultDto } from './dto/getResult.dto';
 
@@ -7,7 +8,8 @@ import { getResultDto } from './dto/getResult.dto';
 export class TarotService {
 
     constructor(
-        private readonly aiService : AiService
+        private readonly aiService : AiService,
+        private readonly translatorService : PapagoTranslatorService
     ) {}
 
     async getResult(dto:getResultDto) {
@@ -20,12 +22,11 @@ export class TarotService {
         const third_text = numToCard(third_card_num);
         const third_forward_text = boolToForward(third_forward);
 
-        const prompt = `Give me a tarot card interpretation for ${type_text} in 100 characters or less, in an astrologer-like tone. First card ${first_text} ${first_forward_text}, second card ${second_text} ${second_forward_text}, third card ${third_text} ${third_forward_text}.`
+        const prompt = `Give me a tarot card interpretation for ${type_text} in 200 characters or less. First card ${first_text} ${first_forward_text}, second card ${second_text} ${second_forward_text}, third card ${third_text} ${third_forward_text}.`
         try {
-            // const result = (await (this.aiService.chatService.textCompletion(prompt))).choices[0].text
-            const result = await this.aiService.translatorService.translate(prompt);
-            console.log(result);
-            return { success : true , result : result };
+            const ai_result = (await (this.aiService.chatService.textCompletion(prompt))).choices[0].text
+            const translator_result = await this.translatorService.translate(ai_result);
+            return { success : true , result : translator_result.message.result.translatedText };
             // return { success : true, result :'abc'}
         } catch(err) {
             console.error(err);
