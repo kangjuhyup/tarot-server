@@ -21,7 +21,6 @@ export class OpenAiChatService {
 
       })
       .then((res: any) => {
-        console.log('gpt-turbo : ', res);
         return res.data;
       }) as unknown as OpenAiCompletionResponse;
     // return this.service
