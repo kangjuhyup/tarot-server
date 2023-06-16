@@ -6,10 +6,6 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "aws-login": "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 917726205845.dkr.ecr.us-east-1.amazonaws.com",
-    "docker": "docker buildx build --platform linux/x86_64  -t tarot-server -f ./Dockerfile . --no-cache",
-    "docker-image": " docker images --filter reference=tarot-server",
-    "docker-push": "docker tag tarot-server:latest 917726205845.dkr.ecr.us-east-1.amazonaws.com/tarot_server:latest && docker push 917726205845.dkr.ecr.us-east-1.amazonaws.com/tarot_server:latest",
     "build:prod": "rimraf dist && cross-env NODE_ENV=production nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
