@@ -60,3 +60,4 @@ jobs:
         --deployment-config-name CodeDeployDefault.OneAtATime \
         --deployment-group-name tarot-server-deploy-group \
         --s3-location bucket=tarot-server,bundleType=zip,key=deploy-$IMAGE_TAG.zip
+ 

@@ -2,7 +2,6 @@
 ## base image
 FROM node:18 AS builder
 
-RUN mkdir -p /tarot-server/app
 
 WORKDIR /tarot-server/app
 
