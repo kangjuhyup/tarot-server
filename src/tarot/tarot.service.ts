@@ -1,18 +1,24 @@
 import { Injectable } from '@nestjs/common';
+import { Request } from 'express';
 import { AiService } from 'src/ai/ai.service';
 import { PapagoTranslatorService } from 'src/ai/translator/papago/papago_translator.service';
 import { boolToForward, numToCard, numToType } from 'src/utils/card';
 import { getResultDto } from './dto/getResult.dto';
+import {v4 as uuidv4} from 'uuid';
 
 @Injectable()
 export class TarotService {
+
+    ip_cache :{}
+    result_cache : {}
 
     constructor(
         private readonly aiService : AiService,
         private readonly translatorService : PapagoTranslatorService
     ) {}
 
-    async getResult(dto:getResultDto) {
+    async getResult(req:Request,dto:getResultDto) {
+        if(this.ip_cache[req.ip] && this.ip_cache[req.ip] < Date.now() - 3600000) return { success: false,  error : 'too many request. can request once an hour'}
         const { type_num, first_card_num, first_forward, second_card_num, second_forward,  third_card_num, third_forward } = dto;
         const type_text = numToType(type_num);
         const first_text = numToCard(first_card_num);
@@ -26,7 +32,18 @@ export class TarotService {
         try {
             const ai_result = (await (this.aiService.chatService.textCompletion(prompt))).choices[0].message.content
             const translator_result = await this.translatorService.translate(ai_result);
-            return { success : true , result : translator_result.message.result.translatedText };
+            this.ip_cache[req.ip] = Date.now();
+            const uuid = uuidv4();
+            this.result_cache[uuid] = {
+                first_card_num,
+                first_forward,
+                second_card_num,
+                second_forward,
+                third_card_num,
+                third_forward,
+                translator_result
+            }
+            return { success : true , result : translator_result.message.result.translatedText , uuid : uuid };
         } catch(err) {
             console.error(err);
             return { sucess : false, error : err };

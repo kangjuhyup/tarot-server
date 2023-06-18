@@ -1,4 +1,5 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Query, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { getResultDto } from './dto/getResult.dto';
 import { TarotService } from './tarot.service';
 
@@ -10,7 +11,10 @@ export class TarotController {
     ) {}
 
     @Get('result')
-    getResult(@Query() dto:getResultDto) {
-        return this.service.getResult(dto);
+    getResult(
+        @Req() request:Request,
+        @Query() dto:getResultDto
+    ) {
+        return this.service.getResult(req,dto);
     }
 }
