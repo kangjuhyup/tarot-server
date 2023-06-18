@@ -6,8 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: tarot_server
-  DOCKER_IMAGE: tarot-server
+  ECR_REPOSITORY: tarot-server
 
 jobs:
   deploy:
