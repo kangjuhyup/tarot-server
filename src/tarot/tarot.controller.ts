@@ -15,6 +15,6 @@ export class TarotController {
         @Req() request:Request,
         @Query() dto:getResultDto
     ) {
-        return this.service.getResult(req,dto);
+        return this.service.getResult(request,dto);
     }
 }
