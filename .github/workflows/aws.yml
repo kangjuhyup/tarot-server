@@ -42,8 +42,8 @@ jobs:
         echo "docker run -p 8001:8001 --name tartot-server -d --restart always $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> scripts/deploy.sh
 
         docker build -t $ECR_REGISTRY/tarot_server:$IMAGE_TAG .
-        docker tag tarot-server:$IMAGE_TAG $ECR_REGISTRY/tarot_server:$IMAGE_TAG
-        docker push $ECR_REGISTRY/tarot_server:$IMAGE_TAG
+        docker tag tarot-server:latest 917726205845.dkr.ecr.us-east-1.amazonaws.com/tarot_server:latest
+        docker push 917726205845.dkr.ecr.us-east-1.amazonaws.com/tarot_server:latest
         echo "image=$ECR_REGISTRY/tarot_server:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Upload to S3
