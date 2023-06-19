@@ -14,7 +14,7 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
   ) {
-    return await this.service.authKakao(res,req.headers.authoriztion.toString())
+    return await this.service.authKakao(res,req.headers.authorization)
     // this.service.OAuthLogin({ req, res });
   }
 
@@ -23,6 +23,5 @@ export class AuthController {
   async kakaoCallback(
 
   ) {
-    console.log('callback');
   }
 }

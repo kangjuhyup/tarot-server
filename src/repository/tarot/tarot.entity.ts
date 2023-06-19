@@ -29,7 +29,7 @@ export class TarotEntity {
   @Column()
   result : string;
 
-  @Column()
+  @Column({type:'bigint'})
   create_time : number;
 
 

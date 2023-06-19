@@ -44,21 +44,14 @@ export class AuthService {
       };
       await this.userRepository.upsert(newUser);
       res.cookie('refresh_token', refreshToken);
-      res.setHeader(
-        'Authoriztion',
-        `Bearer ${await this._generateAccessToken(user.data.id)}`,
-      );
     }
-    return res.send({success:true})
+    const accessToken = await this._generateAccessToken(user.data.id);
+    return res.send({ success: true, access : accessToken });
   }
 
   protected async _generateAccessToken(userId: string): Promise<string> {
     return this.jwtService.signAsync(
       { user_id: userId },
-      {
-        secret: this.configService.get('JWT_ACCESS_SECRET'),
-        expiresIn: `1h`,
-      },
     );
   }
 
