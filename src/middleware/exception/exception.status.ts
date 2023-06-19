@@ -16,6 +16,7 @@ const StatusCode = new Map([
     ['EXISTED_USER',613],
     ['INVAILD_USER',614],
     ['FAIl_LOGIN',615],
+    
   ]);
   
   export default StatusCode;

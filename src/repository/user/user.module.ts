@@ -14,5 +14,5 @@ import { databaseProviders } from "../database.provider";
         ...UserProvider,
     ]
   })
-  export class UserModule {}
+  export class UserRepoModule {}
   

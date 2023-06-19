@@ -1,16 +1,19 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from '@database/user/user.module';
+import { UserRepoModule } from '@database/user/user.module';
 import { databaseProviders } from './database.provider';
+import { TarotRepoModule } from './tarot/tarot.module';
 
 @Module({
     providers : [
         ...databaseProviders
     ],
     imports : [
-        UserModule
+        UserRepoModule,
+        TarotRepoModule,
     ],
     exports : [
-        UserModule
+        UserRepoModule,
+        TarotRepoModule,
     ]
 })
 export class DatabaseModule {}
