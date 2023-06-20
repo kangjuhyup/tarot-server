@@ -54,7 +54,7 @@ jobs:
           JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATABASE_PWD: ${{ secrets.DATABASE_PWD }}
-          DATABASE_PORT: ${{ secrets.DATABASE_PORT
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
 
     - name: Build, tag, and push image to Amazon ECR
