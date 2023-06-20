@@ -29,6 +29,34 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
+    - name: Generate Environment Variables File for Production
+        run: |
+          echo "DATABASE_NAME=$DATABASE_NAME" >> .env.production
+          echo "DATABASE_PORT=$DATABASE_PORT" >> .env.production
+          echo "DATABASE_PWD=$DATABASE_PWD" >> .env.production
+          echo "DATABASE_URL=$DATABASE_URL" >> .env.production
+          echo "JWT_ACCESS_SECRET=$JWT_ACCESS_SECRET" >> .env.production
+          echo "JWT_REFRESH_SECRET=$JWT_REFRESH_SECRET" >> .env.production
+          echo "KAKAO_CALLBACK_URL=$KAKAO_CALLBACK_URL" >> .env.production
+          echo "KAKAO_CLIENT_ID=$KAKAO_CLIENT_ID" >> .env.production
+          echo "PAPAGO_API_KEY=$PAPAGO_API_KEY" >> .env.production
+          echo "PAPAGO_ID=$PAPAGO_ID" >> .env.production
+          echo "OPEN_AI_KEY=$OPEN_AI_KEY" >> .env.production
+          echo "OPEN_AI_ORG=$OPEN_AI_ORG" >> .env.production
+        env:
+          OPEN_AI_ORG: ${{ secrets.OPEN_AI_ORG }}
+          OPEN_AI_KEY: ${{ secrets.OPEN_AI_KEY }}
+          PAPAGO_API_KEY: ${{ secrets.PAPAGO_API_KEY }}
+          PAPAGO_ID: ${{ secrets.PAPAGO_ID }}
+          KAKAO_CLIENT_ID: ${{ secrets.KAKAO_CLIENT_ID }}
+          KAKAO_CALLBACK_URL: ${{ secrets.KAKAO_CALLBACK_URL }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+          JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_PWD: ${{ secrets.DATABASE_PWD }}
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
