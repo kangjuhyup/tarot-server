@@ -9,6 +9,11 @@ import { AiModule } from './ai/ai.module';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { HttpModule } from '@nestjs/axios';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
+import { AuthService } from './auth/auth.service';
+import { DatabaseModule } from './repository/database.module';
+import { AuthJwtModule } from './middleware/jwt/jwt.module';
 
 @Module({
   imports: [
@@ -24,15 +29,18 @@ import { HttpModule } from '@nestjs/axios';
           .valid('development', 'production')
           .default('development'),
         PORT: Joi.number().default(8001),
-        OPEN_AI_KEY : Joi.string().required(),
-        OPEN_AI_ORG : Joi.string().required(),
+        OPEN_AI_KEY: Joi.string().required(),
+        OPEN_AI_ORG: Joi.string().required(),
       }),
     }),
     TarotModule,
-    HttpModule, 
+    HttpModule,
     AiModule,
+    AuthModule,
+    DatabaseModule,
+    AuthJwtModule,
   ],
-  controllers: [AppController, TarotController],
-  providers: [AppService, TarotService, AiService],
+  controllers: [AppController, TarotController, AuthController],
+  providers: [AppService, TarotService, AiService, AuthService],
 })
 export class AppModule {}

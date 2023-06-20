@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { JwtGuard } from './jwt.guard';
 import { JwtStrategy } from './jwt.strategy';
+import { JwtKakaoStrategy } from './kakao.strategy';
 import { RefreshStrategy } from './refresh.straegy';
 
 const jwtModule = JwtModule.registerAsync({
@@ -19,7 +20,7 @@ const refreshModule = JwtModule.registerAsync({
     inject : [ConfigService],
     useFactory : (config : ConfigService) => ({
         secret : config.get<string>('JWT_REFRESH_SECRET'),
-        signOptions: { expiresIn: '1m' },
+        signOptions: { expiresIn: '1d' },
 
     })
 })
@@ -39,13 +40,15 @@ const passportMoudle = PassportModule.register({
   providers : [
       JwtStrategy,
       JwtGuard,
-      RefreshStrategy
+      RefreshStrategy,
+      JwtKakaoStrategy,
     ],
   exports : [
       passportMoudle,
       jwtModule,
       JwtStrategy,
-      JwtGuard
+      JwtGuard,
+      JwtKakaoStrategy,
     ]
 })
 export class AuthJwtModule {}
