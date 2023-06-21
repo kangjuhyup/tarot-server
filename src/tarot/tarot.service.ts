@@ -78,7 +78,7 @@ export class TarotService {
     }
   }
 
-  getHistory(dto:getHistoryDto) {
+  getSharedResult(dto:getHistoryDto) {
       const {uuid} = dto;
       return this.tarotRepository.findOne(uuid);
   }

@@ -23,10 +23,10 @@ export class TarotController {
         return this.service.getResult(request,dto);
     }
 
-    @Get('history')
+    @Get('sharedResult')
     getHistory(
         @Query() dto:getHistoryDto,
     ) {
-        return this.service.getHistory(dto);
+        return this.service.getSharedResult(dto);
     }
 }
