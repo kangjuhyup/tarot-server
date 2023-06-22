@@ -11,6 +11,7 @@ import { TarotEntity } from '@root/repository/tarot/tarot.entity';
 import { JwtService } from '@nestjs/jwt';
 import { InvaildUserException } from '@root/middleware/exception/custom/invaildUser.exception';
 import { getHistoryDto } from './dto/getHistory.dto';
+import { InvaildResultException } from '@root/middleware/exception/custom/invaildResult.exception';
 
 @Injectable()
 export class TarotService {
@@ -63,7 +64,7 @@ export class TarotService {
         second_forward,
         third_card_num,
         third_forward,
-        translator_result,
+        translator_result.message.result.translatedText,
         Date.now(),
       );
       await this.tarotRepository.upsert(tarot);
@@ -78,8 +79,17 @@ export class TarotService {
     }
   }
 
+<<<<<<< Updated upstream
   getHistory(dto:getHistoryDto) {
+=======
+  async getSharedResult(dto:getHistoryDto) {
+>>>>>>> Stashed changes
       const {uuid} = dto;
-      return this.tarotRepository.findOne(uuid);
+      const result = await this.tarotRepository.findOne(uuid);
+      if(!result) throw new InvaildResultException();
+      return {
+        success : true,
+        result : result
+      }
   }
 }
