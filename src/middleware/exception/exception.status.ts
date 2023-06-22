@@ -5,7 +5,7 @@ const StatusCode = new Map([
     ['NOT_FOUND', 404],
     ['INTERNAL_SERVER_ERROR', 500],
     // api exception
-    ['INVAILD_WALLET', 601],
+    ['INVAILD_RESULT', 601],
     ['INSUFFICIENT_BALANCE',602],
     ['NOT_FOUND_TRANSACTION',603],
     ['INVAILD_TRANSACTION_TYPE',604],
