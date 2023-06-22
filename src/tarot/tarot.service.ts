@@ -79,11 +79,7 @@ export class TarotService {
     }
   }
 
-<<<<<<< Updated upstream
-  getHistory(dto:getHistoryDto) {
-=======
   async getSharedResult(dto:getHistoryDto) {
->>>>>>> Stashed changes
       const {uuid} = dto;
       const result = await this.tarotRepository.findOne(uuid);
       if(!result) throw new InvaildResultException();
